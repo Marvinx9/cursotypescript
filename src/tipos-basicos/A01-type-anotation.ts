@@ -13,7 +13,7 @@ let arrayofStrings: Array<string> = ['a', 'b', 'c'];
 let arrayofStrings2: string[] = ['a', 'b', 'c'];
 
 // Objects
-let pessoa: {nome:string, idade: number, adulto?: boolean} = {
+export let pessoa: {nome:string, idade: number, adulto?: boolean} = {
   nome: 'Afranio',
   idade: 24
 };
