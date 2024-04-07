@@ -1,3 +1,5 @@
+// 'super' basicamente serve para aproveitar chaves: valor de outras classes principais e incrementar novas //chaves a uma subclasse
+
 export class Pessoa {
   constructor(
     public nome: string,
@@ -25,8 +27,14 @@ export class Pessoa {
 }
 
 export class Aluno extends Pessoa {
-  getNomeCompleto(): string {
-    return 'vem do aluno ' + this.nome + ' ' + this.sobrenome;
+  constructor(
+    nome: string,
+    sobrenome: string,
+    idade: number,
+    cpf: string,
+    public sala: string,
+  ) {
+    super(nome, sobrenome, idade, cpf);
   }
 }
 export class Cliente extends Pessoa {
@@ -36,7 +44,7 @@ export class Cliente extends Pessoa {
 }
 
 const pessoa = new Pessoa('Afrânio', 'Nunes', 30, '000-000-000-00');
-const aluno = new Aluno('Afrânio', 'Nunes', 30, '000-000-000-00');
+const aluno = new Aluno('Afrânio', 'Nunes', 30, '000-000-000-00', '001');
 const cliente = new Cliente('Afrânio', 'Nunes', 30, '000-000-000-00');
 
 console.log(pessoa.getNomeCompleto());
