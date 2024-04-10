@@ -55,4 +55,4 @@ const colaboradorRemovido = empresa1.popColaborador();
 
 //console.log(showColaborador);
 console.log(empresa1.getNome(), empresa1.nome);
-console.log(colaboradorRemovido);
+console.log(`Colaborador ${JSON.stringify(colaboradorRemovido)} foi removido.`);

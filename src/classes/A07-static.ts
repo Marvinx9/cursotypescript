@@ -24,4 +24,5 @@ const pessoa1 = Pessoa.criarPessoa('Alfrino', 'Nunes');
 console.log(pessoa);
 console.log(pessoa1);
 pessoa1.metodoNormal();
+// posso acessar as chaves do objeto sem instanciar a classe
 console.log(Pessoa.idadePadrao, Pessoa.cpfPadrao);

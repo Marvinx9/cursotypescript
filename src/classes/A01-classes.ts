@@ -15,7 +15,7 @@ export class Empresa {
     this.colaboradores.push(colaborador);
   }
 
-  mostrarColaboradores(): void {
+  public mostrarColaboradores(): void {
     for (const colaborador of this.colaboradores) {
       console.log(colaborador);
     }
