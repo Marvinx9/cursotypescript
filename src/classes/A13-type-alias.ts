@@ -1,3 +1,5 @@
+// criando classes e utilizando herança para realizar o desafio
+
 type TipoNome = {
   nome: string;
 };
@@ -7,9 +9,8 @@ type TipoSobrenome = {
 };
 
 type TipoNomeCompleto = {
-  nomeCompleto: () => string;
+  nomeCompleto(): string;
 };
-
 export class Pessoa implements TipoNome, TipoSobrenome, TipoNomeCompleto {
   constructor(
     public nome: string,
