@@ -18,7 +18,7 @@ export function createPerson(
 // quando eu preciso receber valores desconhecidos na minha função, como o uma string ou number. Eu posso realizar uma validação para ter a certeza do seu tipo.
 // e depois fazer algo com esses valores
 export function squareof(x: any) {
-  if (typeof x === 'number') return x * x;
+  if (x === 'number') return x * x;
   return null;
 }
 
