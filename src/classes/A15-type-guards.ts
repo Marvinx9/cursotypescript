@@ -1,5 +1,3 @@
-import { Pessoa } from './A03-heranca';
-
 export function add(a: unknown, b: unknown): number | string {
   //typeguard
   // se a condição for verdadeira, retorne a + b senão retorne `ab`
@@ -8,14 +6,36 @@ export function add(a: unknown, b: unknown): number | string {
 console.log(add(2, 1));
 console.log(add('a', 'b'));
 
-type Pessoa = { nome: string };
-type Animal = { especie: string };
+type Pessoa = { tipo: 'pessoa'; nome: string };
+type Animal = { tipo: 'animal'; especie: string };
 type PessoaOuAnimal = Pessoa | Animal;
 
 export class Aluno implements Pessoa {
-  constructor(public nome: string) {}
+  constructor(
+    public nome: string,
+    public tipo: 'pessoa',
+  ) {}
 }
 
-function mostrarPessoa(obj: PessoaOuAnimal): void {
-  return 'nome' in obj ? obj.nome : obj.especie;
+export class Especie implements Animal {
+  constructor(
+    public especie: string,
+    public tipo: 'animal',
+  ) {}
 }
+
+function mostrarNome(obj: PessoaOuAnimal): void {
+  // alguns typeguards
+  // if (obj instanceof Aluno) console.log(obj.nome);
+  //if ('nome' in obj) console.log(obj.nome);
+  switch (obj.tipo) {
+    case 'pessoa':
+      console.log(obj.nome);
+      return;
+    case 'animal':
+      console.log(`Isso é um animal ${obj.especie}`);
+  }
+}
+
+mostrarNome(new Aluno('Afranio', 'pessoa'));
+mostrarNome(new Especie('Primata', 'animal'));
