@@ -11,6 +11,13 @@ const coresObj: CoresObj = {
   azul: 'blue',
 };
 
-function traduzirCor(cor: string, cores: CoresObj) {
-  return core[cor];
+function traduzirCor(
+  cor: 'vermelho' | 'verde' | 'azul',
+  cores: typeof coresObj,
+) {
+  return cores[cor];
 }
+
+console.log(traduzirCor('vermelho', coresObj));
+console.log(traduzirCor('verde', coresObj));
+console.log(traduzirCor('azul', coresObj));
