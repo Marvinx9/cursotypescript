@@ -1,23 +1,19 @@
 // criando algo para traduzir cores
-type CoresObj = {
-  vermelho: string;
-  verde: string;
-  azul: string;
-};
+type CoresObj = typeof coresObj;
+type CoresChave = keyof CoresObj;
 
-const coresObj: CoresObj = {
+const coresObj = {
   vermelho: 'red',
   verde: 'green',
   azul: 'blue',
+  amarelo: 'yellow',
 };
 
-function traduzirCor(
-  cor: 'vermelho' | 'verde' | 'azul',
-  cores: typeof coresObj,
-) {
+function traduzirCor(cor: CoresChave, cores: CoresObj) {
   return cores[cor];
 }
 
 console.log(traduzirCor('vermelho', coresObj));
 console.log(traduzirCor('verde', coresObj));
 console.log(traduzirCor('azul', coresObj));
+console.log(traduzirCor('amarelo', coresObj));
