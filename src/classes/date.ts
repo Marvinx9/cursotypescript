@@ -1,34 +1,40 @@
-import { getMonth, addDays, subHours } from 'date-fns';
+import { getMonth, addDays, startOfMonth, getDay } from 'date-fns';
+
+// 'turno.frequencia' podem ser DIARIO|SEMANAL|QUINZENAL|MENSAL|BIMESTRAL|TRIMESTRAL|SEMESTRAL|ANUAL
 
 const turnos = [
   {
     id_agenda: '12341234',
-    frequencia: 'MENSAL',
+    frequencia: 'DIARIO',
     dia_semana: 'SEGUNDA-FEIRA',
-    hora_inicio: '22:00',
-    hora_final: '02:00',
+    hora_inicio: '08:00',
+    hora_final: '12:00',
     duracao: '30',
   },
 ];
 
 const data_front = {
   id_agenda: '12341234',
-  data_inicio: new Date('2024 / 5 / 27'),
-  data_final: new Date('7 / 12 / 2024'),
+  data_inicio: new Date('2024/5/27'),
+  data_final: new Date('2024/6/20'),
 };
 let diaSemanaBanco = new Date('2000/02/24');
 
-const data_atual = subHours(new Date(), 3);
+// const data_atual = subHours(new Date(), 3);
+const data_atual = new Date('2024/5/25');
 
 for (const turno of turnos) {
   //tratando as horas iniciais
   const [horasIniciais, minutosIniciais] = turno.hora_inicio.split(':');
-  const totalMinutosInicial =
-    Number(horasIniciais) * 60 + Number(minutosIniciais);
+  const totalMinutosInicial = Math.floor(
+    Number(horasIniciais) * 60 + Number(minutosIniciais),
+  );
 
   //tratando horas finais
   const [horasFinais, minutosFinais] = turno.hora_final.split(':');
-  let totalMinutosFinais = Number(horasFinais) * 60 + Number(minutosFinais);
+  let totalMinutosFinais = Math.floor(
+    Number(horasFinais) * 60 + Number(minutosFinais),
+  );
   if (totalMinutosInicial > totalMinutosFinais) {
     totalMinutosFinais += 24 * 60;
   }
@@ -92,24 +98,114 @@ for (const turno of turnos) {
       break;
     default:
   }
-  diaSemanaBanco = subHours(diaSemanaBanco, 3);
+
+  // diaSemanaBanco = subHours(diaSemanaBanco, 3);
+  const diaSemanaBancoAnterior = getDay(diaSemanaBanco);
+
+  let primeiraOcorrencia = diaSemanaBanco;
 
   switch (turno.frequencia) {
-    case 'MENSAL':
-      while (getMonth(diaSemanaBanco) < getMonth(data_front.data_final)) {
+    case 'DIARIO':
+      while (diaSemanaBanco <= data_front.data_final) {
         for (let i = 0; i < vagas; i++) {
-          const hora_agendamento = turno.hora_final + Number(turno.duracao) * i;
-          console.log(hora_agendamento);
+          let hora_agendamento = String(
+            Math.floor((totalMinutosInicial + Number(turno.duracao) * i) / 60),
+          );
+          if (hora_agendamento.length == 1) {
+            hora_agendamento = '0' + hora_agendamento;
+          }
+          let minuto_agendamento = String(
+            Math.floor(totalMinutosInicial + Number(turno.duracao) * i) % 60,
+          );
+          if (minuto_agendamento.length == 1) {
+            minuto_agendamento = '0' + minuto_agendamento;
+          }
+          const tempo_agendamento =
+            String(hora_agendamento) + ':' + String(minuto_agendamento);
+
+          const id = crypto.randomUUID();
+          const id_agenda = data_front.id_agenda;
+          console.log('id', id);
+          console.log('id_agenda', id_agenda);
+          console.log('Ocorrencias', primeiraOcorrencia);
+          console.log('tempo_agendamento', tempo_agendamento);
         }
-        // const id = crypto.randomUUID();
-        // const id_agenda = data_front.id_agenda;
-        // console.log('id', id);
-        // console.log('id_agenda', id_agenda);
-        // console.log('diaSemanaBanco', diaSemanaBanco);
-        // console.log('horaAtual');
+
+        diaSemanaBanco = addDays(diaSemanaBanco, 7);
+        primeiraOcorrencia = diaSemanaBanco;
+      }
+      break;
+    case 'SEMANAL':
+      while (diaSemanaBanco <= data_front.data_final) {
+        for (let i = 0; i < vagas; i++) {
+          let hora_agendamento = String(
+            Math.floor((totalMinutosInicial + Number(turno.duracao) * i) / 60),
+          );
+          if (hora_agendamento.length == 1) {
+            hora_agendamento = '0' + hora_agendamento;
+          }
+          let minuto_agendamento = String(
+            Math.floor(totalMinutosInicial + Number(turno.duracao) * i) % 60,
+          );
+          if (minuto_agendamento.length == 1) {
+            minuto_agendamento = '0' + minuto_agendamento;
+          }
+          const tempo_agendamento =
+            String(hora_agendamento) + ':' + String(minuto_agendamento);
+
+          const id = crypto.randomUUID();
+          const id_agenda = data_front.id_agenda;
+          console.log('id', id);
+          console.log('id_agenda', id_agenda);
+          console.log('Ocorrencias', primeiraOcorrencia);
+          console.log('tempo_agendamento', tempo_agendamento);
+        }
+
+        diaSemanaBanco = addDays(diaSemanaBanco, 7);
+        primeiraOcorrencia = diaSemanaBanco;
+      }
+      break;
+    case 'MENSAL':
+      while (getMonth(diaSemanaBanco) <= getMonth(data_front.data_final)) {
+        for (let i = 0; i < vagas; i++) {
+          let hora_agendamento = String(
+            Math.floor((totalMinutosInicial + Number(turno.duracao) * i) / 60),
+          );
+          if (hora_agendamento.length == 1) {
+            hora_agendamento = '0' + hora_agendamento;
+          }
+          let minuto_agendamento = String(
+            Math.floor(totalMinutosInicial + Number(turno.duracao) * i) % 60,
+          );
+          if (minuto_agendamento.length == 1) {
+            minuto_agendamento = '0' + minuto_agendamento;
+          }
+          const tempo_agendamento =
+            String(hora_agendamento) + ':' + String(minuto_agendamento);
+
+          const id = crypto.randomUUID();
+          const id_agenda = data_front.id_agenda;
+          console.log('id', id);
+          console.log('id_agenda', id_agenda);
+          console.log('Ocorrencias', primeiraOcorrencia);
+          console.log('tempo_agendamento', tempo_agendamento);
+        }
 
         diaSemanaBanco.setMonth(diaSemanaBanco.getMonth() + 1);
-        console.log('diaSemanaBanco While', diaSemanaBanco);
+
+        const primeiroDiaMes = startOfMonth(diaSemanaBanco);
+
+        const diaSemanaPrimeiroDia = getDay(primeiroDiaMes);
+
+        let diferenca = diaSemanaBancoAnterior - diaSemanaPrimeiroDia;
+
+        if (diferenca < 0) {
+          diferenca += 7;
+        }
+
+        primeiraOcorrencia = addDays(primeiroDiaMes, diferenca);
       }
+      break;
+    default:
   }
 }
