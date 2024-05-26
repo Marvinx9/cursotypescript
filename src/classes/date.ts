@@ -1,11 +1,11 @@
-import { getMonth, addDays, startOfMonth, getDay } from 'date-fns';
+import { addDays, startOfMonth, getDay, addMonths } from 'date-fns';
 
 // 'turno.frequencia' podem ser DIARIO|SEMANAL|QUINZENAL|MENSAL|BIMESTRAL|TRIMESTRAL|SEMESTRAL|ANUAL
 
 const turnos = [
   {
     id_agenda: '12341234',
-    frequencia: 'DIARIO',
+    frequencia: 'ANUAL',
     dia_semana: 'SEGUNDA-FEIRA',
     hora_inicio: '08:00',
     hora_final: '12:00',
@@ -16,7 +16,7 @@ const turnos = [
 const data_front = {
   id_agenda: '12341234',
   data_inicio: new Date('2024/5/27'),
-  data_final: new Date('2024/6/20'),
+  data_final: new Date('2025/11/20'),
 };
 let diaSemanaBanco = new Date('2000/02/24');
 
@@ -165,8 +165,8 @@ for (const turno of turnos) {
         primeiraOcorrencia = diaSemanaBanco;
       }
       break;
-    case 'MENSAL':
-      while (getMonth(diaSemanaBanco) <= getMonth(data_front.data_final)) {
+    case 'QUINZENAL':
+      while (diaSemanaBanco <= data_front.data_final) {
         for (let i = 0; i < vagas; i++) {
           let hora_agendamento = String(
             Math.floor((totalMinutosInicial + Number(turno.duracao) * i) / 60),
@@ -191,7 +191,200 @@ for (const turno of turnos) {
           console.log('tempo_agendamento', tempo_agendamento);
         }
 
-        diaSemanaBanco.setMonth(diaSemanaBanco.getMonth() + 1);
+        diaSemanaBanco = addDays(diaSemanaBanco, 14);
+        primeiraOcorrencia = diaSemanaBanco;
+      }
+      break;
+    case 'MENSAL':
+      while (diaSemanaBanco <= data_front.data_final) {
+        for (let i = 0; i < vagas; i++) {
+          let hora_agendamento = String(
+            Math.floor((totalMinutosInicial + Number(turno.duracao) * i) / 60),
+          );
+          if (hora_agendamento.length == 1) {
+            hora_agendamento = '0' + hora_agendamento;
+          }
+          let minuto_agendamento = String(
+            Math.floor(totalMinutosInicial + Number(turno.duracao) * i) % 60,
+          );
+          if (minuto_agendamento.length == 1) {
+            minuto_agendamento = '0' + minuto_agendamento;
+          }
+          const tempo_agendamento =
+            String(hora_agendamento) + ':' + String(minuto_agendamento);
+
+          const id = crypto.randomUUID();
+          const id_agenda = data_front.id_agenda;
+          console.log('id', id);
+          console.log('id_agenda', id_agenda);
+          console.log('Ocorrencias', primeiraOcorrencia);
+          console.log('tempo_agendamento', tempo_agendamento);
+        }
+
+        diaSemanaBanco = addMonths(diaSemanaBanco, 1);
+
+        const primeiroDiaMes = startOfMonth(diaSemanaBanco);
+
+        const diaSemanaPrimeiroDia = getDay(primeiroDiaMes);
+
+        let diferenca = diaSemanaBancoAnterior - diaSemanaPrimeiroDia;
+
+        if (diferenca < 0) {
+          diferenca += 7;
+        }
+
+        primeiraOcorrencia = addDays(primeiroDiaMes, diferenca);
+      }
+      break;
+    case 'BIMESTRAL':
+      while (diaSemanaBanco <= data_front.data_final) {
+        for (let i = 0; i < vagas; i++) {
+          let hora_agendamento = String(
+            Math.floor((totalMinutosInicial + Number(turno.duracao) * i) / 60),
+          );
+          if (hora_agendamento.length == 1) {
+            hora_agendamento = '0' + hora_agendamento;
+          }
+          let minuto_agendamento = String(
+            Math.floor(totalMinutosInicial + Number(turno.duracao) * i) % 60,
+          );
+          if (minuto_agendamento.length == 1) {
+            minuto_agendamento = '0' + minuto_agendamento;
+          }
+          const tempo_agendamento =
+            String(hora_agendamento) + ':' + String(minuto_agendamento);
+
+          const id = crypto.randomUUID();
+          const id_agenda = data_front.id_agenda;
+          console.log('id', id);
+          console.log('id_agenda', id_agenda);
+          console.log('Ocorrencias', primeiraOcorrencia);
+          console.log('tempo_agendamento', tempo_agendamento);
+        }
+
+        diaSemanaBanco = addMonths(diaSemanaBanco, 2);
+
+        const primeiroDiaMes = startOfMonth(diaSemanaBanco);
+
+        const diaSemanaPrimeiroDia = getDay(primeiroDiaMes);
+
+        let diferenca = diaSemanaBancoAnterior - diaSemanaPrimeiroDia;
+
+        if (diferenca < 0) {
+          diferenca += 7;
+        }
+
+        primeiraOcorrencia = addDays(primeiroDiaMes, diferenca);
+      }
+      break;
+    case 'TRIMESTRAL':
+      while (diaSemanaBanco <= data_front.data_final) {
+        for (let i = 0; i < vagas; i++) {
+          let hora_agendamento = String(
+            Math.floor((totalMinutosInicial + Number(turno.duracao) * i) / 60),
+          );
+          if (hora_agendamento.length == 1) {
+            hora_agendamento = '0' + hora_agendamento;
+          }
+          let minuto_agendamento = String(
+            Math.floor(totalMinutosInicial + Number(turno.duracao) * i) % 60,
+          );
+          if (minuto_agendamento.length == 1) {
+            minuto_agendamento = '0' + minuto_agendamento;
+          }
+          const tempo_agendamento =
+            String(hora_agendamento) + ':' + String(minuto_agendamento);
+
+          const id = crypto.randomUUID();
+          const id_agenda = data_front.id_agenda;
+          console.log('id', id);
+          console.log('id_agenda', id_agenda);
+          console.log('Ocorrencias', primeiraOcorrencia);
+          console.log('tempo_agendamento', tempo_agendamento);
+        }
+        diaSemanaBanco = addMonths(diaSemanaBanco, 3);
+
+        const primeiroDiaMes = startOfMonth(diaSemanaBanco);
+
+        const diaSemanaPrimeiroDia = getDay(primeiroDiaMes);
+
+        let diferenca = diaSemanaBancoAnterior - diaSemanaPrimeiroDia;
+
+        if (diferenca < 0) {
+          diferenca += 7;
+        }
+
+        primeiraOcorrencia = addDays(primeiroDiaMes, diferenca);
+      }
+      break;
+    case 'SEMESTRAL':
+      while (diaSemanaBanco <= data_front.data_final) {
+        for (let i = 0; i < vagas; i++) {
+          let hora_agendamento = String(
+            Math.floor((totalMinutosInicial + Number(turno.duracao) * i) / 60),
+          );
+          if (hora_agendamento.length == 1) {
+            hora_agendamento = '0' + hora_agendamento;
+          }
+          let minuto_agendamento = String(
+            Math.floor(totalMinutosInicial + Number(turno.duracao) * i) % 60,
+          );
+          if (minuto_agendamento.length == 1) {
+            minuto_agendamento = '0' + minuto_agendamento;
+          }
+          const tempo_agendamento =
+            String(hora_agendamento) + ':' + String(minuto_agendamento);
+
+          const id = crypto.randomUUID();
+          const id_agenda = data_front.id_agenda;
+          console.log('id', id);
+          console.log('id_agenda', id_agenda);
+          console.log('Ocorrencias', primeiraOcorrencia);
+          console.log('tempo_agendamento', tempo_agendamento);
+        }
+
+        diaSemanaBanco = addMonths(diaSemanaBanco, 6);
+
+        const primeiroDiaMes = startOfMonth(diaSemanaBanco);
+
+        const diaSemanaPrimeiroDia = getDay(primeiroDiaMes);
+
+        let diferenca = diaSemanaBancoAnterior - diaSemanaPrimeiroDia;
+
+        if (diferenca < 0) {
+          diferenca += 7;
+        }
+
+        primeiraOcorrencia = addDays(primeiroDiaMes, diferenca);
+      }
+      break;
+    case 'ANUAL':
+      while (diaSemanaBanco <= data_front.data_final) {
+        for (let i = 0; i < vagas; i++) {
+          let hora_agendamento = String(
+            Math.floor((totalMinutosInicial + Number(turno.duracao) * i) / 60),
+          );
+          if (hora_agendamento.length == 1) {
+            hora_agendamento = '0' + hora_agendamento;
+          }
+          let minuto_agendamento = String(
+            Math.floor(totalMinutosInicial + Number(turno.duracao) * i) % 60,
+          );
+          if (minuto_agendamento.length == 1) {
+            minuto_agendamento = '0' + minuto_agendamento;
+          }
+          const tempo_agendamento =
+            String(hora_agendamento) + ':' + String(minuto_agendamento);
+
+          const id = crypto.randomUUID();
+          const id_agenda = data_front.id_agenda;
+          console.log('id', id);
+          console.log('id_agenda', id_agenda);
+          console.log('Ocorrencias', primeiraOcorrencia);
+          console.log('tempo_agendamento', tempo_agendamento);
+        }
+
+        diaSemanaBanco = addMonths(diaSemanaBanco, 12);
 
         const primeiroDiaMes = startOfMonth(diaSemanaBanco);
 
