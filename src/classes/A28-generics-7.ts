@@ -15,4 +15,5 @@ const limpeza = {
   shampoo: 2,
 };
 
-console.log(unirObjetos(comida, limpeza));
+const uniao = unirObjetos(comida, limpeza);
+console.log(uniao);
