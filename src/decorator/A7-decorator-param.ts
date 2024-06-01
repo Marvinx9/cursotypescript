@@ -1,13 +1,13 @@
-//pode ser usado para alterar métodos caso seja nescessário
+// serve para assistir o parâmetro de um método
 
-function decorator(
+function decorador(
   classPrototype: any,
-  nomeMetodo: string,
-  descriptor: PropertyDecorator,
-): PropertyDecorator | void {
+  nomeMetodo: string | symbol,
+  index: number,
+): any {
   console.log(classPrototype);
   console.log(nomeMetodo);
-  console.log(descriptor);
+  console.log(index);
 }
 
 export class UmaPessoa {
@@ -15,14 +15,17 @@ export class UmaPessoa {
   sobrenome: string;
   idade: number;
 
-  constructor(nome: string, sobrenome: string, idade: number) {
+  constructor(
+    @decorador nome: string,
+    @decorador sobrenome: string,
+    @decorador idade: number,
+  ) {
     this.nome = nome;
     this.sobrenome = sobrenome;
     this.idade = idade;
   }
 
-  @decorator
-  metodo(msg: string): string {
+  metodo(@decorador msg: string): string {
     return `${this.nome} ${this.sobrenome}: ${msg}`;
   }
 

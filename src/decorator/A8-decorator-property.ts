@@ -1,18 +1,24 @@
-//pode ser usado para alterar métodos caso seja nescessário
+//posso tanto decorar uma propriedade como alterar ela por meio do meu decorator
 
-function decorator(
-  classPrototype: any,
-  nomeMetodo: string,
-  descriptor: PropertyDecorator,
-): PropertyDecorator | void {
-  console.log(classPrototype);
-  console.log(nomeMetodo);
-  console.log(descriptor);
+function decorador(classPrototype: any, nome: string | symbol): any {
+  let valorPropriedade: any;
+  return {
+    get: () => valorPropriedade,
+    set: (value: any) => {
+      if (typeof value === 'string') {
+        valorPropriedade = value.split('').reverse().join('');
+        return;
+      }
+      valorPropriedade = value;
+    },
+  };
 }
-
 export class UmaPessoa {
+  @decorador
   nome: string;
+  @decorador
   sobrenome: string;
+  @decorador
   idade: number;
 
   constructor(nome: string, sobrenome: string, idade: number) {
@@ -21,9 +27,8 @@ export class UmaPessoa {
     this.idade = idade;
   }
 
-  @decorator
   metodo(msg: string): string {
-    return `${this.nome} ${this.sobrenome}: ${msg}`;
+    return `${this.nome} ${this.sobrenome}: ${msg} idade ${this.idade}`;
   }
 
   get nomeCompleto(): string {
