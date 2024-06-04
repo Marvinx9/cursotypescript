@@ -3,6 +3,8 @@
 - busca binária ----
 */
 
+import { indexOf } from 'lodash';
+
 export class BinarySearch {
   startElement() {
     return 0;
@@ -46,3 +48,40 @@ console.log(result);
   - listas encadeadas ou (linked list), estão intimamente associadas á alocação de memória.
   - funções get position e revert na lista encadeada
 */
+//retorna a posição de um elemento na lista
+
+function Node(data: number) {
+  this.next = null;
+  this.data = data;
+}
+function LinkedList() {
+  this.root = null;
+  this.tail = null;
+
+  this.add = (data: number) => {
+    const newData = new Node(data);
+    if (!this.root) {
+      this.root = newData;
+      this.tail = newData;
+    } else {
+      this.tail.next = newData;
+      this.tail = this.tail.next;
+    }
+  };
+  this.print = (separator = '->') => {
+    const result = [];
+    let temp = this.root;
+    while (temp) {
+      result.push(temp.data);
+      temp = temp.next;
+    }
+    return result.join(separator);
+  };
+}
+
+const list = new LinkedList();
+
+list.add(0);
+list.add(1);
+list.add(2);
+console.log(list.print);
