@@ -26,6 +26,9 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@nestjs/axios": "^3.0.2",
+    "axios": "^1.7.2",
+    "cep-promise": "^4.4.1",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.21",
     "validator": "^13.12.0"
