@@ -1,6 +1,8 @@
+//apontador inicialmente null
+
 function No(dado) {
-  this.apontador = null; //apontador
-  this.dado = dado; //dado
+  this.apontador = null;
+  this.dado = dado;
 }
 
 function ListaEncadeada() {

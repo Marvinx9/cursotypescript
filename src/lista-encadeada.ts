@@ -86,7 +86,7 @@ linkedList.append(1);
 linkedList.append(2);
 linkedList.append(3);
 
-console.log('insert linked lint', linkedList.toArray());
+console.log('insert linked list', linkedList.toArray());
 console.log('get position', linkedList.getPosition(1));
 
 linkedList.reverse();
