@@ -18,4 +18,7 @@ const arquivos = [
 
 const html = '<p>Mundo Docker</p> <p>Uso de conteiner</p>';
 
-module.exports = { text, arquivos, html };
+const alfabeto =
+  'ABCDEFGHIJKMLNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz ℗ↈ 0123456789 ↈ';
+
+module.exports = { text, arquivos, html, alfabeto };
