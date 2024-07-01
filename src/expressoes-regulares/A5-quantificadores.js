@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-
+// Quantificadores greedy e non greedy
 const { html } = require('./A1-data');
 
 const regExp1 = /<.+>.+<\/.+>/g; //greedy
